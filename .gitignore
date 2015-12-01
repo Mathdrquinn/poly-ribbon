@@ -1,0 +1,5 @@
+.idea/
+.idea_Store/
+.DS_Store
+.sass-cache/
+node_modules/
