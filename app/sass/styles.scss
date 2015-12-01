@@ -1,0 +1,20 @@
+$black: rgb(20, 20, 40);
+$grey: rgb(250, 250, 253);
+$white: #fffffe;
+$off-white: #9c9c9c;
+
+html,
+body {
+  background-color: $grey;
+  color: $off-white;
+  height: 100%;
+  margin: 0;
+  overflow: scroll;
+  padding: 0;
+  width: 100%;
+}
+
+canvas {
+  background-color: $white;
+  // height: 100%;
+}

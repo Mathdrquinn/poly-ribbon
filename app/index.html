@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Canvas</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript">
+      var collection = [];
+      // debugger;
+      var startDate = new Date();
+      var startTime = startDate.getTime();
+      function getRandom(spacing, min) {
+        return Math.ceil( Math.random() * spacing ) + (min - 1);
+      }
+
+      function draw() {
+        var polyCanvas = document.getElementById('PolyDraw');
+        var ctx = polyCanvas.getContext('2d');
+        var width = document.body.offsetWidth;
+        var height = document.body.offsetHeight;
+        var pixelRatio = 1 || window.devicePixelRatio;
+        var scale = 1 / pixelRatio;
+        var r = 32;
+
+        var adjustedWidth = width * pixelRatio;
+        var adjustedHeight = height * pixelRatio;
+
+        polyCanvas.width = adjustedWidth;
+        polyCanvas.height = adjustedHeight;
+        ctx.globalAlpha = 0.7;
+        ctx.scale( scale, scale);
+
+          function polydraw() {
+            ctx.clearRect(0, 0, adjustedWidth, adjustedHeight);
+            points = [
+              {
+                index: 0,
+                x: -15,
+                y: height * 0.65 - 30,
+                fill: gerRainbow(31)
+              },
+              {
+                index: 1,
+                x: 0,
+                y: height * 0.65 + 30,
+                fill: gerRainbow(31)
+              }
+            ];
+            collection.push(points[0]);
+            collection.push(points[1]);
+
+            while (points[1].x < width + 400) {
+              nextPoint(points[0], points[1]);
+              // console.count('nextPoint');
+            }
+          }
+          function nextPoint(pt0, pt1) {
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
+            ctx.fillStyle = gerRainbow(r);
+            ctx.beginPath();
+            ctx.moveTo(pt0.x, pt0.y);
+            ctx.lineTo(pt1.x, pt1.y);
+            var newX = getNewX(pt1.x),
+                newY = getNewY(pt1.y),
+                newPt = {index: pt1.index+1, x: newX, y: newY, fill: ctx.fillStyle};
+            ctx.lineTo(newX, newY);
+            ctx.closePath();
+            console.log(ctx.fillStyle);
+            r++
+            collection.push(newPt);
+            ctx.fill();
+            ctx.stroke();
+
+            points[0] = points[1];
+            points[1] = newPt;
+          }
+
+          function getNewX(xCoord) {
+            return getRandom(120, xCoord);
+          }
+
+          function getNewY(yCoord) {
+            var spacing = 120;
+            var y = getRandom(spacing, yCoord) - (spacing / 2);
+            return (y > 0 || y < (height / scale)) ? y : getNewY(yCoord)
+          }
+
+          function gerRainbow(inc) {
+            i = inc % 8;
+            pos = Math.floor(inc / 8) % 6;
+            var letters = '01268DEF'.split('');
+            var color = ['0', '0', '0', '0', '0', '0'];
+            color[pos] = letters[7 - i];
+            color[(pos + 1) % 6] = letters[7];
+            color[(pos + 2) % 6] = letters[i];
+            return '#' + color.join('');
+          }
+          // Draw initial
+          polydraw();
+          document.onclick = function() {
+            collection = [];
+            polydraw();
+          };
+
+          function animate() {
+            // console.count('animate');
+            var date = new Date();
+            var time = date.getTime();
+            ctx.moveTo(0, 0);
+            ctx.clearRect(0, 0, adjustedWidth, adjustedHeight);
+            var loop = getLoop(time);
+            var frontOfWave = getFrontOfWave(time);
+            // console.log(frontOfWave);
+            for (var i = 0; i < collection.length - 2; i++) {
+              // if (i < frontOfWave) {
+              //   collection[i].y += Math.cos( Math.PI * (frontOfWave % collection.length) ) * 2;
+              //   console.log(collection[i].y);
+              // }
+              wave(collection[i], collection[i + 1], collection[i + 2], frontOfWave);
+            }
+            window.requestAnimationFrame(animate);
+          }
+
+          function wave(pt0, pt1, pt2, frontOfWave) {
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
+            // debugger;
+            ctx.beginPath();
+            ctx.moveTo(pt0.x, adjustY(pt0, frontOfWave));
+            ctx.lineTo(pt1.x, pt1.y);
+            ctx.lineTo(pt2.x, pt2.y);
+            ctx.closePath();
+            ctx.fillStyle = pt1.fill;
+            ctx.fill();
+          }
+
+          function getLoop(time) {
+            return Math.floor((time - startTime) / 10000);
+          }
+
+          function getFrontOfWave(time) {
+            return Math.floor((time - startTime) / (10000 / collection.length));
+          }
+
+          function adjustY(pt, frontOfWave) {
+            var foo = ((pt.index - frontOfWave) - (collection.length / 2)) / (collection.length / 2);
+            collection[pt.index].y += (Math.cos( Math.PI * (foo) ) * 0.25);
+            // debugger;
+            return  collection[pt.index].y;
+          }
+          animate();
+      }
+    </script>
+    <style type="text/css">
+      canvas { border: 1px solid black; }
+    </style>
+  </head>
+  <body onload="draw();">
+    <canvas id="PolyDraw"></canvas>
+  </body>
+</html>
+<!--
+
+
+var polyCanvas = document.getElementById('PolyDraw');
+if (polyCanvas.getContext) {
+  console.log('context');
+  var ctx = polyCanvas.getContext('2d');
+  var width = document.body.offsetWidth;
+  var height = document.body.offsetHeight;
+  var moveRight = 75;
+  var pixelRatio = window.devicePixelRatio || 1;
+  var adjustedWidth = width * pixelRatio;
+  var adjustedHeight = height * pixelRatio;
+  f = 70 * pixelRatio;
+  q = [];
+  // m = Math,
+  r = 0,
+  // u = m.PI*2,
+  // v = m.cos,
+  // z = m.random
+  polyCanvas.width = adjustedWidth;
+  polyCanvas.height = adjustedHeight;
+  ctx.scale(1 / pixelRatio, 1 / pixelRatio);
+  ctx.globalAlpha = 0.6;
+  function i(){
+      ctx.clearRect(0, 0, adjustedWidth, adjustedHeight)
+      verticies = [
+        {
+          x: 0,
+          y: height * .7 + f
+        },
+        {
+          x: 0,
+          y: height * .7 - f
+        }
+      ];
+      points.push(verticies[0]);
+      points.push(verticies[1]);
+      while(verticies[1].x < adjustedWidth + f) drawPoly(verticies[0], verticies[1])
+  }
+  function drawPoly(pt1, pt2){
+      ctx.beginPath();
+      ctx.moveTo(pt1.x, pt1.y);
+      ctx.lineTo(pt2.x, pt2.y);
+      var newX = pt2.x + ( Math.random() * 2 - 0.25 ) * f,
+          newY = getNewY(pt2.y);
+      ctx.lineTo(newX, newY);
+      points.push({x: newX, y: newY});
+      ctx.closePath();
+      r -= ( Math.PI * 2 ) / -45;
+      ctx.fillStyle = '#'+( Math.cos(r) * 127 + 128 << 16 | Math.cos( r + (Math.PI*2) / 3 ) * 127 + 128 << 8 | Math.cos( r + (Math.PI*2) / 3 * 2 ) * 127 + 128 ).toString(16)
+      // console.log(Math.cos(r) * 127 + 128 << 16);
+      // console.log(Math.cos( r + (Math.PI*2) / 3 ) * 127 + 128 << 8);
+      // console.log(Math.cos( r + (Math.PI*2) / 3 * 2 ) * 127 + 128);
+      ctx.fill();
+      debugger;
+      verticies[0] = verticies[1];
+      verticies[1] = {x: newX, y: newY}
+  }
+  function getNewY(oldY){
+      var y = oldY + ( Math.random() * 2 - 1.1 ) * f
+      return ( y > adjustedHeight || y < 0 ) ? getNewY(oldY) : y
+  }
+  document.onclick = i
+  document.ontouchstart = i
+  i();
+}
+-->
