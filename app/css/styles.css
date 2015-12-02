@@ -1,7 +1,8 @@
 html,
 body {
-  background-color: #fafafd;
-  color: #9c9c9c;
+  background-color: #14141e;
+  color: #fffffe;
+  font-family: 'Josefin Sans', sans-serif;
   height: 100%;
   margin: 0;
   overflow: scroll;
@@ -9,6 +10,25 @@ body {
   width: 100%;
 }
 
-canvas {
-  background-color: #fffffe;
+#Text {
+  left: 50%;
+  margin-left: -200px;
+  margin-top: -200px;
+  position: absolute;
+  top: 50%;
+  width: 400px;
+}
+#Text h1,
+#Text p {
+  text-align: center;
+}
+#Text p {
+  font-size: 18px;
+}
+#Text a {
+  color: #fffffe;
+  text-decoration: none;
+}
+#Text a:hover {
+  text-decoration: underline;
 }

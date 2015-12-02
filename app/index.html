@@ -3,14 +3,24 @@
   <head>
     <meta charset="utf-8"/>
     <title>Canvas</title>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/styles.css">
     <script type="text/javascript">
+      /*
+        Inspired y Evan You
+        http://www.evanyou.me
+      */
       var collection = [];
       // debugger;
       var startDate = new Date();
       var startTime = startDate.getTime();
+
       function getRandom(spacing, min) {
         return Math.ceil( Math.random() * spacing ) + (min - 1);
+      }
+
+      function getTrueRandom(spacing, min) {
+        return Math.random() * spacing + min;
       }
 
       function draw() {
@@ -28,7 +38,7 @@
 
         polyCanvas.width = adjustedWidth;
         polyCanvas.height = adjustedHeight;
-        ctx.globalAlpha = 0.7;
+        ctx.globalAlpha = 0.5;
         ctx.scale( scale, scale);
 
           function polydraw() {
@@ -66,7 +76,6 @@
                 newPt = {index: pt1.index+1, x: newX, y: newY, fill: ctx.fillStyle};
             ctx.lineTo(newX, newY);
             ctx.closePath();
-            console.log(ctx.fillStyle);
             r++
             collection.push(newPt);
             ctx.fill();
@@ -89,12 +98,17 @@
           function getRainbow(inc) {
             i = inc % 8;
             pos = Math.floor(inc / 8) % 6;
-            var letters = '01268DEF'.split('');
+            var letters = '0126ADEF'.split('');
             var color = ['0', '0', '0', '0', '0', '0'];
             color[pos] = letters[7 - i];
             color[(pos + 1) % 6] = letters[7];
             color[(pos + 2) % 6] = letters[i];
-            return '#' + color.join('');
+            color = '#' + color.join('');
+            if (color === '#6fa000') {
+              console.count('barf');
+              return getRainbow(++inc);
+            }
+            return color;
           }
           // Draw initial
           polydraw();
@@ -109,7 +123,7 @@
             ctx.clearRect(0, 0, adjustedWidth + Math.abs(translation.x), adjustedHeight + Math.abs(translation.y));
 
             wave(ctx, collection);
-            flow(ctx, -0.25);
+            flow(ctx, -0.05);
             window.requestAnimationFrame(animate);
           }
 
@@ -142,12 +156,12 @@
           }
 
           function getFrontOfWave(time) {
-            return Math.floor((time - startTime) / (10000 / adjustedWidth));
+            return Math.floor((time - startTime) / (30000 / adjustedWidth));
           }
 
           function adjustY(pt, frontOfWave) {
             var foo = ((pt.x - frontOfWave) - (adjustedWidth / 2)) / (adjustedWidth / 2);
-            collection[pt.index].y += (Math.cos( Math.PI * (foo) ) * 0.8);
+            collection[pt.index].y += (Math.cos( Math.PI * (foo) ) * 0.15) + getTrueRandom(0.2, -0.1);
             // debugger;
             return  collection[pt.index].y;
           }
@@ -177,73 +191,12 @@
   </head>
   <body onload="draw();">
     <canvas id="PolyDraw"></canvas>
+    <div id="Text">
+      <h1>Brendan Quinn</h1>
+      <p>A playful experiement in HTML5 canvas by a javascript dev.</p>
+      <p><a href="http://www.github.com/Mathdrquinn">Github</a></p>
+      <p><a href="https://www.linkedin.com/in/brendan-quinn-7670b879">LinkedIn</a></p>
+      <p><a href="http://www.twitter.com/Mathdrquinn">Twitter</a></p>
+    </div>
   </body>
 </html>
-<!--
-
-
-var polyCanvas = document.getElementById('PolyDraw');
-if (polyCanvas.getContext) {
-  console.log('context');
-  var ctx = polyCanvas.getContext('2d');
-  var width = document.body.offsetWidth;
-  var height = document.body.offsetHeight;
-  var moveRight = 75;
-  var pixelRatio = window.devicePixelRatio || 1;
-  var adjustedWidth = width * pixelRatio;
-  var adjustedHeight = height * pixelRatio;
-  f = 70 * pixelRatio;
-  q = [];
-  // m = Math,
-  r = 0,
-  // u = m.PI*2,
-  // v = m.cos,
-  // z = m.random
-  polyCanvas.width = adjustedWidth;
-  polyCanvas.height = adjustedHeight;
-  ctx.scale(1 / pixelRatio, 1 / pixelRatio);
-  ctx.globalAlpha = 0.6;
-  function i(){
-      ctx.clearRect(0, 0, adjustedWidth, adjustedHeight)
-      verticies = [
-        {
-          x: 0,
-          y: height * .7 + f
-        },
-        {
-          x: 0,
-          y: height * .7 - f
-        }
-      ];
-      points.push(verticies[0]);
-      points.push(verticies[1]);
-      while(verticies[1].x < adjustedWidth + f) drawPoly(verticies[0], verticies[1])
-  }
-  function drawPoly(pt1, pt2){
-      ctx.beginPath();
-      ctx.moveTo(pt1.x, pt1.y);
-      ctx.lineTo(pt2.x, pt2.y);
-      var newX = pt2.x + ( Math.random() * 2 - 0.25 ) * f,
-          newY = getNewY(pt2.y);
-      ctx.lineTo(newX, newY);
-      points.push({x: newX, y: newY});
-      ctx.closePath();
-      r -= ( Math.PI * 2 ) / -45;
-      ctx.fillStyle = '#'+( Math.cos(r) * 127 + 128 << 16 | Math.cos( r + (Math.PI*2) / 3 ) * 127 + 128 << 8 | Math.cos( r + (Math.PI*2) / 3 * 2 ) * 127 + 128 ).toString(16)
-      // console.log(Math.cos(r) * 127 + 128 << 16);
-      // console.log(Math.cos( r + (Math.PI*2) / 3 ) * 127 + 128 << 8);
-      // console.log(Math.cos( r + (Math.PI*2) / 3 * 2 ) * 127 + 128);
-      ctx.fill();
-      debugger;
-      verticies[0] = verticies[1];
-      verticies[1] = {x: newX, y: newY}
-  }
-  function getNewY(oldY){
-      var y = oldY + ( Math.random() * 2 - 1.1 ) * f
-      return ( y > adjustedHeight || y < 0 ) ? getNewY(oldY) : y
-  }
-  document.onclick = i
-  document.ontouchstart = i
-  i();
-}
--->
