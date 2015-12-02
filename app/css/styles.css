@@ -3,11 +3,17 @@ body {
   background-color: #14141e;
   color: #fffffe;
   font-family: 'Josefin Sans', sans-serif;
+  font-weight: 100;
   height: 100%;
   margin: 0;
   overflow: hidden;
   padding: 0;
   width: 100%;
+}
+
+#PolyDraw {
+  width: 100%;
+  height: 100%;
 }
 
 #Text {
@@ -18,12 +24,13 @@ body {
   top: 50%;
   width: 320px;
 }
-#Text h1,
-#Text p {
+#Text h1 {
+  font-size: 2.25em;
   text-align: center;
 }
 #Text p {
-  font-size: 18px;
+  font-size: 1.25em;
+  text-align: center;
 }
 #Text a {
   color: #fffffe;
@@ -31,4 +38,17 @@ body {
 }
 #Text a:hover {
   text-decoration: underline;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (-webkit-min-device-pixel-ratio: 2) and (max-width: 768px), only screen and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) and (max-width: 768px) {
+  @import url(https://fonts.googleapis.com/css?family=Josefin+Sans:700);
+  body, html {
+    font-size: 20px;
+  }
+
+  #Text {
+    width: 100%;
+    left: 0;
+    margin-left: 0;
+  }
 }

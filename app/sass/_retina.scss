@@ -1,0 +1,13 @@
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) and (max-width: 768px) {
+  @import url(https://fonts.googleapis.com/css?family=Josefin+Sans:700);
+
+  body, html {
+    font-size: 20px;
+  }
+
+  #Text {
+    width: 100%;
+    left: 0;
+    margin-left: 0;
+  }
+}
