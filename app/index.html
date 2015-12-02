@@ -20,6 +20,7 @@
         var height = document.body.offsetHeight;
         var pixelRatio = 1 || window.devicePixelRatio;
         var scale = 1 / pixelRatio;
+        var translation = {x: 0, y: 0};
         var r = 32;
 
         var adjustedWidth = width * pixelRatio;
@@ -37,13 +38,13 @@
                 index: 0,
                 x: -15,
                 y: height * 0.65 - 30,
-                fill: gerRainbow(31)
+                fill: getRainbow(31)
               },
               {
                 index: 1,
                 x: 0,
                 y: height * 0.65 + 30,
-                fill: gerRainbow(31)
+                fill: getRainbow(30)
               }
             ];
             collection.push(points[0]);
@@ -56,7 +57,7 @@
           }
           function nextPoint(pt0, pt1) {
             ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
-            ctx.fillStyle = gerRainbow(r);
+            ctx.fillStyle = getRainbow(r);
             ctx.beginPath();
             ctx.moveTo(pt0.x, pt0.y);
             ctx.lineTo(pt1.x, pt1.y);
@@ -82,10 +83,10 @@
           function getNewY(yCoord) {
             var spacing = 120;
             var y = getRandom(spacing, yCoord) - (spacing / 2);
-            return (y > 0 || y < (height / scale)) ? y : getNewY(yCoord)
+            return (y > 0 && y < (height / scale)) ? y : getNewY(yCoord)
           }
 
-          function gerRainbow(inc) {
+          function getRainbow(inc) {
             i = inc % 8;
             pos = Math.floor(inc / 8) % 6;
             var letters = '01268DEF'.split('');
@@ -104,24 +105,26 @@
 
           function animate() {
             // console.count('animate');
-            var date = new Date();
-            var time = date.getTime();
             ctx.moveTo(0, 0);
-            ctx.clearRect(0, 0, adjustedWidth, adjustedHeight);
-            var loop = getLoop(time);
-            var frontOfWave = getFrontOfWave(time);
-            // console.log(frontOfWave);
-            for (var i = 0; i < collection.length - 2; i++) {
-              // if (i < frontOfWave) {
-              //   collection[i].y += Math.cos( Math.PI * (frontOfWave % collection.length) ) * 2;
-              //   console.log(collection[i].y);
-              // }
-              wave(collection[i], collection[i + 1], collection[i + 2], frontOfWave);
-            }
+            ctx.clearRect(0, 0, adjustedWidth + Math.abs(translation.x), adjustedHeight + Math.abs(translation.y));
+
+            wave(ctx, collection);
+            flow(ctx, -0.25);
             window.requestAnimationFrame(animate);
           }
 
-          function wave(pt0, pt1, pt2, frontOfWave) {
+          function wave(ctx, collection) {
+            var date = new Date();
+            var time = date.getTime();
+            var frontOfWave = getFrontOfWave(time);
+            // console.log(frontOfWave);
+            for (var i = 0; i < collection.length - 2; i++) {
+              motion(ctx, collection[i], collection[i + 1], collection[i + 2], frontOfWave);
+            }
+            return ctx;
+          }
+
+          function motion(ctx, pt0, pt1, pt2, frontOfWave) {
             ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
             // debugger;
             ctx.beginPath();
@@ -131,6 +134,7 @@
             ctx.closePath();
             ctx.fillStyle = pt1.fill;
             ctx.fill();
+            return ctx;
           }
 
           function getLoop(time) {
@@ -138,14 +142,31 @@
           }
 
           function getFrontOfWave(time) {
-            return Math.floor((time - startTime) / (10000 / collection.length));
+            return Math.floor((time - startTime) / (10000 / adjustedWidth));
           }
 
           function adjustY(pt, frontOfWave) {
-            var foo = ((pt.index - frontOfWave) - (collection.length / 2)) / (collection.length / 2);
-            collection[pt.index].y += (Math.cos( Math.PI * (foo) ) * 0.25);
+            var foo = ((pt.x - frontOfWave) - (adjustedWidth / 2)) / (adjustedWidth / 2);
+            collection[pt.index].y += (Math.cos( Math.PI * (foo) ) * 0.8);
             // debugger;
             return  collection[pt.index].y;
+          }
+
+          function flow(ctx, move) {
+            // Slide canvas
+            ctx.translate(move, 0);
+            translation.x += move;
+
+            // Add new point to canvas
+            // Set color
+            ctx.fillStyle = getRainbow(r);
+            var newX = getNewX(collection[collection.length - 1].x),
+                newY = getNewY(collection[collection.length - 1].y),
+                newPt = {index: collection.length, x: newX, y: newY, fill: ctx.fillStyle};
+            r++
+            collection.push(newPt);
+            // debugger;
+            return ctx;
           }
           animate();
       }
