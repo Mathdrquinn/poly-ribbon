@@ -1,0 +1,179 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'angular',
+1 verbose cli   'ui-router',
+1 verbose cli   'nganimate' ]
+2 info using npm@3.3.12
+3 info using node@v4.2.2
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData angular
+8 silly fetchPackageMetaData ui-router
+9 silly fetchPackageMetaData nganimate
+10 silly fetchNamedPackageData angular
+11 silly mapToRegistry name angular
+12 silly mapToRegistry using default registry
+13 silly mapToRegistry registry https://registry.npmjs.org/
+14 silly mapToRegistry uri https://registry.npmjs.org/angular
+15 silly fetchNamedPackageData ui-router
+16 silly mapToRegistry name ui-router
+17 silly mapToRegistry using default registry
+18 silly mapToRegistry registry https://registry.npmjs.org/
+19 silly mapToRegistry uri https://registry.npmjs.org/ui-router
+20 silly fetchNamedPackageData nganimate
+21 silly mapToRegistry name nganimate
+22 silly mapToRegistry using default registry
+23 silly mapToRegistry registry https://registry.npmjs.org/
+24 silly mapToRegistry uri https://registry.npmjs.org/nganimate
+25 verbose request uri https://registry.npmjs.org/angular
+26 verbose request no auth needed
+27 info attempt registry request try #1 at 2:09:44 PM
+28 verbose request id 38763616b225c07a
+29 http request GET https://registry.npmjs.org/angular
+30 verbose request uri https://registry.npmjs.org/ui-router
+31 verbose request no auth needed
+32 info attempt registry request try #1 at 2:09:44 PM
+33 http request GET https://registry.npmjs.org/ui-router
+34 verbose request uri https://registry.npmjs.org/nganimate
+35 verbose request no auth needed
+36 info attempt registry request try #1 at 2:09:44 PM
+37 http request GET https://registry.npmjs.org/nganimate
+38 http 404 https://registry.npmjs.org/nganimate
+39 verbose headers { 'content-type': 'application/json',
+39 verbose headers   'cache-control': 'max-age=0',
+39 verbose headers   'content-length': '2',
+39 verbose headers   'accept-ranges': 'bytes',
+39 verbose headers   date: 'Wed, 02 Dec 2015 19:09:44 GMT',
+39 verbose headers   via: '1.1 varnish',
+39 verbose headers   age: '0',
+39 verbose headers   connection: 'keep-alive',
+39 verbose headers   'x-served-by': 'cache-ord1725-ORD',
+39 verbose headers   'x-cache': 'MISS',
+39 verbose headers   'x-cache-hits': '0',
+39 verbose headers   'x-timer': 'S1449083384.667493,VS0,VE41' }
+40 silly get cb [ 404,
+40 silly get   { 'content-type': 'application/json',
+40 silly get     'cache-control': 'max-age=0',
+40 silly get     'content-length': '2',
+40 silly get     'accept-ranges': 'bytes',
+40 silly get     date: 'Wed, 02 Dec 2015 19:09:44 GMT',
+40 silly get     via: '1.1 varnish',
+40 silly get     age: '0',
+40 silly get     connection: 'keep-alive',
+40 silly get     'x-served-by': 'cache-ord1725-ORD',
+40 silly get     'x-cache': 'MISS',
+40 silly get     'x-cache-hits': '0',
+40 silly get     'x-timer': 'S1449083384.667493,VS0,VE41' } ]
+41 silly fetchPackageMetaData Error: Registry returned 404 for GET on https://registry.npmjs.org/nganimate
+41 silly fetchPackageMetaData     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+41 silly fetchPackageMetaData     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:242:14)
+41 silly fetchPackageMetaData     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+41 silly fetchPackageMetaData     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:198:22)
+41 silly fetchPackageMetaData     at emitTwo (events.js:87:13)
+41 silly fetchPackageMetaData     at Request.emit (events.js:172:7)
+41 silly fetchPackageMetaData     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1082:10)
+41 silly fetchPackageMetaData     at emitOne (events.js:82:20)
+41 silly fetchPackageMetaData     at Request.emit (events.js:169:7)
+41 silly fetchPackageMetaData     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1009:12)
+41 silly fetchPackageMetaData  error for nganimate { [Error: Registry returned 404 for GET on https://registry.npmjs.org/nganimate] pkgid: 'nganimate', statusCode: 404, code: 'E404' }
+42 http 200 https://registry.npmjs.org/ui-router
+43 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+43 verbose headers   etag: '"1JT6SUS6LUBB38RFC35H1GIQC"',
+43 verbose headers   'content-type': 'application/json',
+43 verbose headers   'cache-control': 'max-age=60',
+43 verbose headers   'content-length': '12328',
+43 verbose headers   'accept-ranges': 'bytes',
+43 verbose headers   date: 'Wed, 02 Dec 2015 19:09:44 GMT',
+43 verbose headers   via: '1.1 varnish',
+43 verbose headers   age: '0',
+43 verbose headers   connection: 'keep-alive',
+43 verbose headers   'x-served-by': 'cache-ord1724-ORD',
+43 verbose headers   'x-cache': 'MISS',
+43 verbose headers   'x-cache-hits': '0',
+43 verbose headers   'x-timer': 'S1449083384.666791,VS0,VE51',
+43 verbose headers   vary: 'Accept' }
+44 silly get cb [ 200,
+44 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+44 silly get     etag: '"1JT6SUS6LUBB38RFC35H1GIQC"',
+44 silly get     'content-type': 'application/json',
+44 silly get     'cache-control': 'max-age=60',
+44 silly get     'content-length': '12328',
+44 silly get     'accept-ranges': 'bytes',
+44 silly get     date: 'Wed, 02 Dec 2015 19:09:44 GMT',
+44 silly get     via: '1.1 varnish',
+44 silly get     age: '0',
+44 silly get     connection: 'keep-alive',
+44 silly get     'x-served-by': 'cache-ord1724-ORD',
+44 silly get     'x-cache': 'MISS',
+44 silly get     'x-cache-hits': '0',
+44 silly get     'x-timer': 'S1449083384.666791,VS0,VE51',
+44 silly get     vary: 'Accept' } ]
+45 verbose get saving ui-router to /Users/bquinn/.npm/registry.npmjs.org/ui-router/.cache.json
+46 http 200 https://registry.npmjs.org/angular
+47 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+47 verbose headers   etag: '"5B1GQYWY6ZVD1EYTDUJHTNX9E"',
+47 verbose headers   'content-type': 'application/json',
+47 verbose headers   'cache-control': 'max-age=60',
+47 verbose headers   'content-length': '111168',
+47 verbose headers   'accept-ranges': 'bytes',
+47 verbose headers   date: 'Wed, 02 Dec 2015 19:09:44 GMT',
+47 verbose headers   via: '1.1 varnish',
+47 verbose headers   age: '0',
+47 verbose headers   connection: 'keep-alive',
+47 verbose headers   'x-served-by': 'cache-ord1721-ORD',
+47 verbose headers   'x-cache': 'HIT',
+47 verbose headers   'x-cache-hits': '1',
+47 verbose headers   'x-timer': 'S1449083384.666528,VS0,VE38',
+47 verbose headers   vary: 'Accept' }
+48 silly get cb [ 200,
+48 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+48 silly get     etag: '"5B1GQYWY6ZVD1EYTDUJHTNX9E"',
+48 silly get     'content-type': 'application/json',
+48 silly get     'cache-control': 'max-age=60',
+48 silly get     'content-length': '111168',
+48 silly get     'accept-ranges': 'bytes',
+48 silly get     date: 'Wed, 02 Dec 2015 19:09:44 GMT',
+48 silly get     via: '1.1 varnish',
+48 silly get     age: '0',
+48 silly get     connection: 'keep-alive',
+48 silly get     'x-served-by': 'cache-ord1721-ORD',
+48 silly get     'x-cache': 'HIT',
+48 silly get     'x-cache-hits': '1',
+48 silly get     'x-timer': 'S1449083384.666528,VS0,VE38',
+48 silly get     vary: 'Accept' } ]
+49 verbose get saving angular to /Users/bquinn/.npm/registry.npmjs.org/angular/.cache.json
+50 silly rollbackFailedOptional Starting
+51 silly rollbackFailedOptional Finishing
+52 silly runTopLevelLifecycles Starting
+53 silly runTopLevelLifecycles Finishing
+54 silly install printInstalled
+55 verbose stack Error: Registry returned 404 for GET on https://registry.npmjs.org/nganimate
+55 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:264:12)
+55 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:242:14)
+55 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:172:14)
+55 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:198:22)
+55 verbose stack     at emitTwo (events.js:87:13)
+55 verbose stack     at Request.emit (events.js:172:7)
+55 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1082:10)
+55 verbose stack     at emitOne (events.js:82:20)
+55 verbose stack     at Request.emit (events.js:169:7)
+55 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1009:12)
+56 verbose statusCode 404
+57 verbose pkgid nganimate
+58 verbose cwd /Users/bquinn/Documents/Dev/Sides/Polydraw
+59 error Darwin 15.0.0
+60 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "angular" "ui-router" "nganimate"
+61 error node v4.2.2
+62 error npm  v3.3.12
+63 error code E404
+64 error 404 Registry returned 404 for GET on https://registry.npmjs.org/nganimate
+64 error 404
+64 error 404 'nganimate' is not in the npm registry.
+64 error 404 You should bug the author to publish it (or use the name yourself!)
+64 error 404
+64 error 404 Note that you can also install from a
+64 error 404 tarball, folder, http url, or git url.
+65 verbose exit [ 1, true ]

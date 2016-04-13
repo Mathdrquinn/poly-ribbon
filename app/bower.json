@@ -1,0 +1,17 @@
+{
+  "name": "Portfolio",
+  "homepage": "https://github.com/Mathdrquinn/poly-ribbon",
+  "description": "portfolio for Mathdrquinn",
+  "main": "app.js",
+  "moduleType": [],
+  "authors": [
+    "brendan quinn <quinn.197@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-ui-router": "ui-router#~0.2.15",
+    "angular-animate": "~1.4.8"
+  }
+}

@@ -1,0 +1,49 @@
+@import "variables";
+
+html,
+body {
+  background-color: $black;
+  color: $white;
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 100;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+}
+
+#PolyDraw {
+  width: 100%;
+  height: 100%;
+}
+
+#Text {
+  left: 50%;
+  margin-left: -160px;
+  margin-top: -150px;
+  position: absolute;
+  top: 50%;
+  width: 320px;
+
+  h1 {
+    font-size: 2.25em;
+    text-align: center;
+  }
+
+  p {
+    font-size: 1.25em;
+    text-align: center;
+  }
+
+  a {
+    color: $white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@import "retina";

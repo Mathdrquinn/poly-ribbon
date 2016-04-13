@@ -20,6 +20,12 @@ gulp.task('express', function() {
     // __parentDirArray.pop();
     __parentDirArray.push('app');
   app.use(express.static( __parentDirArray.join('/') ));
+
+	// For HTML5 mode
+	app.all('/*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendFile('app/index.html', { root: __dirname });
+	});
   app.listen(4000);
 });
 
@@ -41,7 +47,7 @@ function notifyLiveReload(event) {
 }
 
 gulp.task('sass', function() {
-    return sass('app/sass', { style: 'expanded' })
+    return sass('dev/sass', { style: 'expanded' })
         .pipe(gulp.dest('app/css'))
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1'))
 	    .pipe(gulp.dest('app/css'))
@@ -51,8 +57,11 @@ gulp.task('sass', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('app/sass/*.scss', ['sass']);
+  gulp.watch('dev/sass/*.scss', ['sass']);
   gulp.watch('app/*.html', notifyLiveReload);
+	gulp.watch('app/tmpl*.html', notifyLiveReload);
+	gulp.watch('app/js/*.js', notifyLiveReload);
+	gulp.watch('app/js/**/*.js', notifyLiveReload);
   gulp.watch('app/css/*.css', notifyLiveReload);
   gulp.watch('app/js/*.js', notifyLiveReload);
 });
